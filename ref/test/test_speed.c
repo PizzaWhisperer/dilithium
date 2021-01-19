@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <time.h>
 #include "../sign.h"
 #include "../poly.h"
 #include "../polyvec.h"
@@ -24,7 +25,7 @@ int main(void)
   poly *c = &mat[0].vec[2];
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     expand_mat(mat, seed);
   }
   print_results("expand_mat:", t, NTESTS);
@@ -48,43 +49,43 @@ int main(void)
 */
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     poly_ntt(a);
   }
   print_results("poly_ntt:", t, NTESTS);
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     poly_invntt_tomont(a);
   }
   print_results("poly_invntt_tomont:", t, NTESTS);
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     poly_pointwise_montgomery(c, a, b);
   }
   print_results("poly_pointwise_montgomery:", t, NTESTS);
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     challenge(c, seed, (polyveck *)mat);
   }
   print_results("challenge:", t, NTESTS);
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     crypto_sign_keypair(pk, sk);
   }
   print_results("Keypair:", t, NTESTS);
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     crypto_sign(sm, &smlen, sm, CRHBYTES, sk);
   }
   print_results("Sign:", t, NTESTS);
 
   for(i = 0; i < NTESTS; ++i) {
-    t[i] = cpucycles();
+    t[i] = (float)clock()*(1000000000/CLOCKS_PER_SEC);
     crypto_sign_verify(sm, CRYPTO_BYTES, sm + CRYPTO_BYTES, CRHBYTES, pk);
   }
   print_results("Verify:", t, NTESTS);

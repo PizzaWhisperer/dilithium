@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "cpucycles.h"
 #include "speed_print.h"
 
@@ -48,8 +49,8 @@ void print_results(const char *s, uint64_t *t, size_t tlen) {
   printf("%llu, %llu,", (unsigned long long)median(t, tlen), (unsigned long long)average(t, tlen));
 #else
   printf("%s\n", s);
-  printf("median: %llu cycles/ticks\n", (unsigned long long)median(t, tlen));
-  printf("average: %llu cycles/ticks\n", (unsigned long long)average(t, tlen));
+  printf("median: %llu ns/op\n", (unsigned long long)median(t, tlen));
+  printf("average: %llu ns/op\n", (unsigned long long)average(t, tlen));
   printf("\n");
 #endif
 }
